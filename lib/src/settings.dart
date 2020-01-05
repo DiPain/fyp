@@ -55,47 +55,49 @@ class Settings extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Container(
-        child: SingleChildScrollView(
-          child: Column(
-            children: <Widget>[
+    return Scaffold(
+      body: Center(
+        child: Container(
+          child: SingleChildScrollView(
+            child: Column(
+              children: <Widget>[
 
-              ChangeNotifierProvider(
-                builder: (_)=>ProfileBack(),
-                child: Consumer<ProfileBack>(
-                builder: (context, logBack,_){
-                  final profileBack = Provider.of<ProfileBack>(context);
-                  if(!updated){
-                    profileBack.update();
-                    updated=true;
-                  }
-                  return Row(
-                    children: <Widget>[
-                    SizedBox(width: 50,),
-                    Container(width: 40,
-                    height: 40,child: Icon(Icons.person_outline),),
-                    SizedBox(width: 20,),
-
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                ChangeNotifierProvider(
+                  builder: (_)=>ProfileBack(),
+                  child: Consumer<ProfileBack>(
+                  builder: (context, logBack,_){
+                    final profileBack = Provider.of<ProfileBack>(context);
+                    if(!updated){
+                      profileBack.update();
+                      updated=true;
+                    }
+                    return Row(
                       children: <Widget>[
-                        Txt(DbServer.name),
-                        Txt(DbServer.email),
-                      ],
-                    )
-                  ],);
-                }
-              )),
-              
-              SizedBox(height: 30,),
-              SizedBox(height: 20,),
-              btn(1,context),
-              SizedBox(height: 20,),
-              btn(2,context),
-              SizedBox(height: 20,),
-              btn(3,context),
-            ],
+                      SizedBox(width: 50,),
+                      Container(width: 40,
+                      height: 40,child: Icon(Icons.person_outline),),
+                      SizedBox(width: 20,),
+
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Txt(DbServer.name),
+                          Txt(DbServer.email),
+                        ],
+                      )
+                    ],);
+                  }
+                )),
+                
+                SizedBox(height: 30,),
+                SizedBox(height: 20,),
+                btn(1,context),
+                SizedBox(height: 20,),
+                btn(2,context),
+                SizedBox(height: 20,),
+                btn(3,context),
+              ],
+            ),
           ),
         ),
       ),

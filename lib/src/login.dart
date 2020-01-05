@@ -54,7 +54,6 @@ class _LoginState extends State<Login> {
                 TextField(
                   controller: cont_user,
                   decoration: InDecor(hint: 'user', suffix: '@islingtoncollege.edu.np'),
-
                 ),
                 SizedBox(height: 20,),
                 TextField(

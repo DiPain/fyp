@@ -15,6 +15,7 @@ class DbServer{
   static String name = '';
   static String email = '';
   static List tray = [];
+  static List menu = [];
 
   getHeader(){
     Map<String, String> headers = {"Content-type":"application/json"};
@@ -34,7 +35,7 @@ class DbServer{
     print(foodId);
     for(int i=0; i<tray.length;i++){
       if(tray[i][0]==foodId){
-        tray[i][0]+=quantity;
+        tray[i][1]+=quantity;
         added=true;
       }
     }
@@ -81,6 +82,26 @@ class DbServer{
     Response response = await post(DbServer().getServer()+'/api/menu', headers: DbServer().getHeader(), body: bod);
     var res =  json.decode(response.body); 
     return res;
+  }
+
+  foodDetails(int i){
+    for (var item in menu) {
+      if(item['food_id']==i){
+        return item;
+      }
+    }
+    return null;
+  }
+  order() async{
+    String bod = '{"api_token":"'+token+'", "order":';  
+    for (var item in tray) {
+      bod+=item[0].toString()+'.'+item[1].toString()+',';
+    }
+    bod+='}';
+    print(bod);
+    // Response response = await post(DbServer().getServer()+'/api/order', headers: DbServer().getHeader(), body: bod);
+    // var res =  json.decode(response.body); 
+    // return res;
   }
 
   changePass(String old, String nuu) async{

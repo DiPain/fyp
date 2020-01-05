@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:fyp/res/Txt.dart';
 import 'package:fyp/res/dbServer.dart';
 import 'package:fyp/res/logout.dart';
+import 'package:fyp/src/home.dart';
 import 'package:fyp/src/login.dart';
 import 'package:fyp/src/navi.dart';
 import 'package:flutter/material.dart';
@@ -13,7 +14,7 @@ class Splas extends StatefulWidget{
   _SplasState createState() => _SplasState();
 }
 class _SplasState extends State<Splas>{
-  bool connected = true;
+  bool connecting = true;
   bool pushed = false;
   @override
   void initState(){
@@ -28,6 +29,7 @@ class _SplasState extends State<Splas>{
         Fluttertoast.showToast(
           msg: 'Check internet connection',
           gravity: ToastGravity.BOTTOM,
+          toastLength: Toast.LENGTH_LONG,
         );
       }
     });
@@ -38,18 +40,34 @@ class _SplasState extends State<Splas>{
     String token = pref.getString('token');
     if(token != null && token!=''){
       DbServer.token= token;
+      print('remembered');
       DbServer().getProfile().then((val){
+        print(val);
         if(val==null){
+          print('null');
+
           setState(() {
-            connected = false;
+            connecting = false;
           });
         }else if(val['success']=='true'){
+          print(val);
+
           pushed = true;
+          DbServer.name=val['name'];
+          DbServer.email=val['email'];
           Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>Navi()));
         }else if(val['success']=='false'){
+          print('false');
+
           pushed = true;
           Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>Login()));
         }
+      }).catchError((e){
+        print('=============');
+        print(e);
+        setState(() {
+          connecting=false;
+        });
       });
     }else{
       pushed = true;
@@ -66,7 +84,7 @@ class _SplasState extends State<Splas>{
           child: Container(
             height: 30,
             width: 30,
-            child:connected? CircularProgressIndicator(
+            child:connecting? CircularProgressIndicator(
               valueColor: AlwaysStoppedAnimation<Color>(Color.fromRGBO(33, 145, 106, 1)),
             ): Column(
               children: <Widget>[
