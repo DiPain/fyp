@@ -98,7 +98,7 @@ class _LoginState extends State<Login> {
                               }else if(value['result']=='success'){
                                 remember(value['token']);
                                 DbServer.token=value['token'];
-                                // DbServer().pushPlayId(DbServer.playerId);
+                                DbServer().pushPlayId(DbServer.playerId);
                                 Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>Navi()));
                               }else {
                                 logBack.changeStatus(false);

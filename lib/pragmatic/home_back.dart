@@ -37,8 +37,9 @@ class HomeBack with ChangeNotifier{
                     print(index);
                     DbServer().addtoTray(val[index]['food_id'], 1);
                     Fluttertoast.showToast(
-                      msg: 'added foodId',
-                      gravity: ToastGravity.CENTER
+                      msg: val[index]['food']['name']+' added',
+                      gravity: ToastGravity.CENTER,
+                      
                     );
                    },
                   child: Row(

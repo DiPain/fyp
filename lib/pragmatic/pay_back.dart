@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:fyp/res/dbServer.dart';
 
-class OrderBack with ChangeNotifier{
+class PayBack with ChangeNotifier{
   List allOrders = [];
   update(){
-    DbServer().getOrders().then((val){
+    DbServer().getPayments().then((val){
       if(val!=null){
         allOrders=[];
         print("val");

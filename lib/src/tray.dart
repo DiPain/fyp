@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:fyp/pragmatic/tray_back.dart';
 import 'package:fyp/pragmatic/order_button.dart';
 import 'package:fyp/res/Txt.dart';
@@ -149,7 +150,12 @@ class _OrdersState extends State<Tray> {
                                 orderButton.changeLoading(true);
                                 print(DbServer.tray);
                                 DbServer().order().then((val){
+                                  print("ordered");
                                   orderButton.changeLoading(false);
+                                  Fluttertoast.showToast(
+                                    msg: "ordered",
+                                    gravity: ToastGravity.CENTER,
+                                  );
 
                                   print(val);
                                 });

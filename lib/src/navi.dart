@@ -6,6 +6,7 @@ import 'package:fyp/res/dbServer.dart';
 import 'package:fyp/res/decor.dart';
 import 'package:fyp/src/home.dart';
 import 'package:fyp/src/orders.dart';
+import 'package:fyp/src/transactions.dart';
 import 'package:fyp/src/tray.dart';
 import 'package:fyp/src/settings.dart';
 import 'package:flutter/material.dart';
@@ -74,6 +75,7 @@ class _NaviState extends State<Navi> {
       ['Home', Icons.home, Home(),],
       ['Tray', Icons.add_box, Tray(),],
       ['Orders', Icons.add_box, Orders(),],
+      ['Payments', Icons.add_box, Transactions(),],
       ['Settings', Icons.settings, Settings(),],
     ];
 
@@ -91,11 +93,10 @@ class _NaviState extends State<Navi> {
               child: Container(
                 child: ListView.builder(
                   itemCount: pages.length+1,
-
                   itemBuilder: (context, i){
                     if(i==0){
                       return Container(
-                        height: 100,
+                        height: 150,
                         width: 100,
                         child: SizedBox(),
                       );
@@ -113,7 +114,7 @@ class _NaviState extends State<Navi> {
                           onPressed: (){
                             naviBack.changeTab(i-1);
                             print('should change');
-                            Navigator.popAndPushNamed(context, '/newroute');
+                            Navigator.popAndPushNamed(context, '/home');
                           },
                         ),
                       );
@@ -205,6 +206,8 @@ class _NaviState extends State<Navi> {
                   child: Consumer<TrayBack>(
                     builder: (context, trayBack,_){
                       final trayBack = Provider.of<TrayBack>(context);
+                      print("DbServer.tray");
+                      print(DbServer.tray);
                       trayBack.getTotal();
                       return Container(
                         child: Stack(
@@ -212,6 +215,8 @@ class _NaviState extends State<Navi> {
                             ListView.builder(
                               itemCount: DbServer.tray.length+1,
                               itemBuilder: (context, intex){
+                                  print(intex);print('intex');
+
                                 if(intex==0){
                                   return Container(
                                     height: 70,
@@ -222,12 +227,12 @@ class _NaviState extends State<Navi> {
                                       },
                                       child: Txt('Tray', size: 20),
                                     ),
-
                                   );
                                 }else{
+                                  print(trayBack.food(DbServer.tray[intex-1][0]) );
+                                  print(trayBack.food(DbServer.tray[intex-1][0]) ['food']['name']);
                                   return Container(
                                     padding: EdgeInsets.only(right:20, left: 10),
-
                                     decoration: BoxDecor(radius: 0),
                                     child: FlatButton(
                                       onPressed: (){
@@ -241,12 +246,12 @@ class _NaviState extends State<Navi> {
                                         Column(
                                           crossAxisAlignment: CrossAxisAlignment.start,
                                         children: <Widget>[
-                                          Txt(DbServer.menu[DbServer.tray[intex-1][0]]['food']['name'],fw: FontWeight.w300, size: 20,),
-                                          Txt(DbServer.menu[DbServer.tray[intex-1][0]]['price'].toString() )
+                                          Txt((trayBack.food(DbServer.tray[intex-1][0]) ['food']['name']),fw: FontWeight.w300, size: 20,),
+                                          Txt((trayBack.food(DbServer.tray[intex-1][0]) ['price']).toString() )
                                         ],),
                                         Expanded(child: SizedBox(),),
                                         Txt('Rs.', fw:FontWeight.w300),
-                                        Txt((DbServer.menu[DbServer.tray[intex-1][0]]['price']*DbServer.tray[intex-1][1]).toString(), size: 20,fw:FontWeight.w300 ),
+                                        Txt(((trayBack.food(DbServer.tray[intex-1][0]) ['price'])*DbServer.tray[intex-1][1]).toString(), size: 20,fw:FontWeight.w300 ),
                                         
                                       ],),
                                     )

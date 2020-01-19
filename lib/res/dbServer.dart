@@ -77,6 +77,12 @@ class DbServer{
     var res =  json.decode(response.body); 
     return res;
   }
+  getPayments() async{
+    String bod = '{"api_token":"'+token+'"}';
+    Response response = await post(DbServer().getServer()+'/api/payments', headers: DbServer().getHeader(), body: bod);
+    var res =  json.decode(response.body); 
+    return res;
+  }
   getMenu() async{
     String bod = '{"api_token":"'+token+'"}';
     Response response = await post(DbServer().getServer()+'/api/menu', headers: DbServer().getHeader(), body: bod);
@@ -99,9 +105,9 @@ class DbServer{
     }
     bod+='}';
     print(bod);
-    // Response response = await post(DbServer().getServer()+'/api/order', headers: DbServer().getHeader(), body: bod);
-    // var res =  json.decode(response.body); 
-    // return res;
+    Response response = await post(DbServer().getServer()+'/api/order', headers: DbServer().getHeader(), body: bod);
+    var res =  json.decode(response.body); 
+    return res;
   }
 
   changePass(String old, String nuu) async{

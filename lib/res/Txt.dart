@@ -6,7 +6,7 @@ class Txt extends Text{
   double size, ln;
   Txt(this.data,{
     double size = 16, 
-    FontWeight fw = FontWeight.normal, 
+    FontWeight fw = FontWeight.w300, 
     String font='OpenSans', 
     Color color = Colors.black, 
     double ln =0, 
