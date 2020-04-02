@@ -13,11 +13,9 @@ class TrayBack with ChangeNotifier{
 
   getTotal(){
     total = 0;
-    print("DbServer.menu");
-    print(DbServer.menu);
     for (var m in DbServer.menu){
       for (var item in DbServer.tray){
-        if(m['food_id']==item[0]){
+        if(m['id']==item[0]){
           total +=  m['price']*item[1];
         }
       }
@@ -25,7 +23,7 @@ class TrayBack with ChangeNotifier{
   }
   food(int food_id){
     for(var m in DbServer.menu){
-      if(m['food_id']==food_id){
+      if(m['id']==food_id){
         return m; 
       }
     }

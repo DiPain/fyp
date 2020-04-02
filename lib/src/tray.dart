@@ -50,7 +50,7 @@ class _OrdersState extends State<Tray> {
                         children: <Widget>[
                           SizedBox(),
                           SizedBox(),
-                          Txt(food['food']['name'], size: 20, fw: FontWeight.w300,),
+                          Txt(food['name'], size: 20, fw: FontWeight.w300,),
                           Row(
                             children: <Widget>[
                               Txt('Rs.'+(food['price']*item[1]).toString(), fw: FontWeight.w300,),
@@ -97,11 +97,12 @@ class _OrdersState extends State<Tray> {
             }
           }
           return Scaffold(
+            backgroundColor: Colors.white,
             body: Container(
+              color: Colors.green,
               child: Column(
                 children: <Widget>[
                   SizedBox(height: 30,),
-                  Txt('Tray', size:20),
                   Container(
                     child: Column(
                       children: tray,

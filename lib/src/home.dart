@@ -1,4 +1,5 @@
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:fyp/components/recommendations.dart';
 import 'package:fyp/pragmatic/home_back.dart';
 import 'package:fyp/res/Txt.dart';
 import 'package:fyp/res/dbServer.dart';
@@ -29,7 +30,6 @@ class _HomeState extends State<Home> {
         );
       }
     }); 
-    print(DbServer.token);
     List pages = [
       ['Home', Icons.add_box, Home(),],
       ['Tray', Icons.add_box, Tray(),],
@@ -154,11 +154,7 @@ class _HomeState extends State<Home> {
       //      child: SizedBox(),
       //    ),
       // ),
-      body: Container(
-        height: MediaQuery.of(context).size.height,
-        padding: EdgeInsets.only(left: 20, right: 20, top: 20),
-        child: Column(
-          children: <Widget>[
+      body: 
             ChangeNotifierProvider(
               builder: (_)=>HomeBack(),
               child: Consumer<HomeBack>(
@@ -168,36 +164,38 @@ class _HomeState extends State<Home> {
                     loaded=true;
                     homeBack.update();
                   }
-                  return Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children:<Widget>[
-                      SizedBox(height: 10,),
-                      Txt('Recommended', size: 20,),
-                      SizedBox(height: 10,),
+                  print('in home=======');
+                  print(homeBack.recommended);
+                  print(homeBack.menu);
 
-                      SingleChildScrollView(
-                        scrollDirection: Axis.horizontal,
-                        child: Row(
-                          children: homeBack.recommended,
-                        ),
-                      ),
+                  return Recommendations(homeBack.recommended,homeBack.menu );
+                  // return Column(
+                  //   crossAxisAlignment: CrossAxisAlignment.start,
+                  //   children:<Widget>[
+                  //     SizedBox(height: 10,),
+                  //     Txt('Recommended', size: 20,),
+                  //     SizedBox(height: 10,),
+
+                  //     SingleChildScrollView(
+                  //       scrollDirection: Axis.horizontal,
+                  //       child: Row(
+                  //         children: homeBack.recommended,
+                  //       ),
+                  //     ),
                     
-                      SizedBox(height: 10,),
-                      Txt('MENU', size: 20),
-                      SizedBox(height: 10,),
+                  //     SizedBox(height: 10,),
+                  //     Txt('MENU', size: 20),
+                  //     SizedBox(height: 10,),
 
-                      Container(
-                        height: MediaQuery.of(context).size.height-390,
-                        child: homeBack.menu,
-                      )
-                    ] 
-                  );
+                  //     Container(
+                  //       height: MediaQuery.of(context).size.height-390,
+                  //       child: homeBack.menu,
+                  //     )
+                  //   ] 
+                  // );
                 }
               )
-            ),
-          ],
         ),
-      ),
     );
   }
   

@@ -1,4 +1,4 @@
-import 'package:cached_network_image/cached_network_image.dart';
+// import 'package:cached_network_image/cached_network_image.dart';
 import 'package:fyp/res/dbServer.dart';
 import 'package:fyp/res/decor.dart';
 import 'package:flutter/material.dart';
@@ -63,15 +63,15 @@ class _ProfileState extends State<Profile>{
                             height: 200,
                             width: double.infinity,
                             color: Colors.blue,
-                            child: 
-                            CachedNetworkImage(
-                              imageUrl: img,
-                              placeholder:(contet, String s)=> Container(
-                                height: 40,
-                                width: 40,
-                                child: CircularProgressIndicator(valueColor: AlwaysStoppedAnimation<Color>(Colors.white),)),
-                              errorWidget:(context, String s, a)=> new Icon(Icons.error),
-                            ),
+                            child: Text('data')
+                            // CachedNetworkImage(
+                            //   imageUrl: img,
+                            //   placeholder:(contet, String s)=> Container(
+                            //     height: 40,
+                            //     width: 40,
+                            //     child: CircularProgressIndicator(valueColor: AlwaysStoppedAnimation<Color>(Colors.white),)),
+                            //   errorWidget:(context, String s, a)=> new Icon(Icons.error),
+                            // ),
                             //  Image.network(img,height: 100, width: 100,),
                           ),
                           Roe(['id ',snap.data['id'].toString()]),

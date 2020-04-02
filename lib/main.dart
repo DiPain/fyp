@@ -16,10 +16,14 @@ class MyApp extends StatelessWidget {
 
   @override
   void initState() {
+    print("==init================");
     OneSignal.shared.init(app_id);
     OneSignal.shared.getPermissionSubscriptionState().then((onValue){
       String playerId = onValue.subscriptionStatus.userId;
       DbServer.playerId = playerId;
+      print("=============serverid");
+      print(DbServer.playerId);
+
     });
 
     _messaging.configure(
@@ -45,6 +49,35 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print("==init================");
+    OneSignal.shared.init(app_id);
+    OneSignal.shared.getPermissionSubscriptionState().then((onValue){
+      String playerId = onValue.subscriptionStatus.userId;
+      DbServer.playerId = playerId;
+      print("=============serverid");
+      print(DbServer.playerId);
+
+    });
+
+    _messaging.configure(
+      onLaunch: (Map<String, dynamic> message)async{
+        print('launched $message');
+      },
+      onMessage: (Map<String, dynamic> message)async{
+        // showNotification(message);
+        print('messaged $message');
+      },
+      onResume: (Map<String, dynamic> message)async{
+        // showNotification(message);
+        print('resumed $message');
+      }
+    );
+
+    _messaging.getToken().then(( token) {
+      print("messaging token");
+      print(token);
+    });
+    
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(

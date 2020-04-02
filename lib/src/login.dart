@@ -89,7 +89,6 @@ class _LoginState extends State<Login> {
                           onPressed: (){
                             logBack.changeStatus(true);
                             check(cont_user.text, cont_pass.text).then((var value){
-                              print(value);
                               if(value==null){
                                 logBack.changeStatus(false);
                                 setState(() {
@@ -141,9 +140,8 @@ class _LoginState extends State<Login> {
   }
 
   check(String email, String pass) async{
-    String bod = '{"email":"'+email+'@islingtoncollege.edu.np","password":"'+pass+'" }';
-    // String bod = '{"email":"deepan@islingtoncollege.edu.np","password":"secret" }';
-    print(bod);
+    // String bod = '{"email":"'+email+'@islingtoncollege.edu.np","password":"'+pass+'" }';
+    String bod = '{"email":"a@islingtoncollege.edu.np","password":"aaaaaaaa" }';
     Response response = await post(DbServer().getServer()+'/api/login', headers: DbServer().getHeader(), body: bod);
     var res =  json.decode(response.body); 
     return res;

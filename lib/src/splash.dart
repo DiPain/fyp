@@ -41,31 +41,21 @@ class _SplasState extends State<Splas>{
     String token = pref.getString('token');
     if(token != null && token!=''){
       DbServer.token= token;
-      print('remembered');
       DbServer().getProfile().then((val){
-        print(val);
         if(val==null){
-          print('null');
-
           setState(() {
             connecting = false;
           });
         }else if(val['success']=='true'){
-          print(val);
-
           pushed = true;
           DbServer.name=val['name'];
           DbServer.email=val['email'];
           Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>Navi()));
         }else if(val['success']=='false'){
-          print('false');
-
           pushed = true;
           Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>Login()));
         }
       }).catchError((e){
-        print('=============');
-        print(e);
         setState(() {
           connecting=false;
         });
@@ -88,7 +78,7 @@ class _SplasState extends State<Splas>{
               height: 30,
               width: 30,
               child: CircularProgressIndicator(
-                valueColor: AlwaysStoppedAnimation<Color>(Color.fromRGBO(33, 145, 106, 1)),
+                valueColor: AlwaysStoppedAnimation<Color>(Colors.blue),
               )): Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
